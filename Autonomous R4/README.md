@@ -12,7 +12,7 @@ The goal of the project is to design a mobile platform that can navigate indepen
 - Build a stable and modular robotic platform capable of differential drive(Using esp32 PWM) and lidar based navigation, using a speaker to talk with enviornment.
 - Learn! I'd like to have this project teach me everything neccessary to devlop real world skills like soldering, design, and CAD modeling.
 - Multimode Model, I'd like to have a button implmeneting two different drive mechanisms, autonomous mode and pilot mode.
-- 
+  
 **System Architecture**
 
 Control System:	ESP32 Dev Module C - The brain of the project, has 30 pins to support all other boards and connections
