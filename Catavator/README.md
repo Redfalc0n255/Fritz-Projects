@@ -6,24 +6,23 @@ The system detects when a cat steps on the platform using a load cell, and stops
 A simple protoboard consolidates motor driving, power regulation, and safety circuits.
 
 
-**Core Components**
 
-Component	                                           Description
+**Component**	                                           Description
 
-ESP32-DevKitC	                                       Main microcontroller for logic, sensors, and control
+**ESP32-DevKitC** :                                      Main microcontroller for logic, sensors, and control
 
-Motor Driver (TB6612FNG or BTS7960)	                 Drives the 12 V DC gearmotor
+**Motor Driver (TB6612FNG or BTS7960**)	                 Drives the 12 V DC gearmotor
 
-12 V DC Gearmotor + Gearbox	                         Provides high torque for smooth lift motion
+**12 V DC Gearmotor + Gearbox**                        Provides high torque for smooth lift motion
 
-Load Cell (TAL220B-50 kg)	                           Detects added weight when cat steps on platform
+**Load Cell (TAL220B-50 kg)**	                           Detects added weight when cat steps on platform
 
-HX711 Amplifier	                                     Reads load-cell signal
+**HX711 Amplifier**	                                     Reads load-cell signal
 
-Limit Switches	                                     Define top and bottom stops for safety
+**Limit Switches**	                                     Define top and bottom stops for safety
 
-Relay (SRD-05VDC-SL-C)	                             Optional emergency stop or power cutoff
+**Relay (SRD-05VDC-SL-C)**	                             Optional emergency stop or power cutoff
 
-12 V → 5 V Buck Converter	                           Steps down logic rail voltage for ESP32 and sensors
+**12 V → 5 V Buck Converter**	                           Steps down logic rail voltage for ESP32 and sensors
 
 Ill be updating this as the project continues.
