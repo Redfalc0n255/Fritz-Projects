@@ -6,12 +6,12 @@ This project is just a small little present for my good friend Don Tatlock. I wa
 
 2. TP4056 LiPO charging module
 
-3.ESP32-C3 Supermini
+3. ESP32-C3 Supermini
 
-4.MAX98357A Speaker Driver + 8Ohm Cheapo Speaker
+4. MAX98357A Speaker Driver + 8Ohm Cheapo Speaker
 
-5.WS2812B LED Ring.
+5. WS2812B LED Ring.
 
-6.MicroSD Card Reader Adapter + MicroSD Card
+6. MicroSD Card Reader Adapter + MicroSD Card
 
-7.Other assorted hardware includine 3 buttons, power toggle switch and of course the 3D printed housing + minifigure.
+7. Other assorted hardware includine 3 buttons, power toggle switch and of course the 3D printed housing + minifigure.
