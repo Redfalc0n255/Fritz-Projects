@@ -15,3 +15,8 @@ This project is just a small little present for my good friend Don Tatlock. I wa
 6. MicroSD Card Reader Adapter + MicroSD Card
 
 7. Other assorted hardware includine 3 buttons, power toggle switch and of course the 3D printed housing + minifigure.
+
+
+**useful links:**
+
+https://randomnerdtutorials.com/getting-started-esp32-c3-super-mini/
