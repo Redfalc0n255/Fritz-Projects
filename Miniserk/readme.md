@@ -20,3 +20,4 @@ This project is just a small little present for my good friend Don Tatlock. I wa
 **useful links:**
 
 https://randomnerdtutorials.com/getting-started-esp32-c3-super-mini/
+https://www.best-microcontroller-projects.com/tp4056.html
