@@ -14,7 +14,7 @@ This project is just a small little present for my good friend Don Tatlock. I wa
 
 6. MicroSD Card Reader Adapter + MicroSD Card
 
-7. Other assorted hardware includine 3 buttons, power toggle switch and of course the 3D printed housing + minifigure.
+7. Other assorted hardware including 1 button, power toggle switch and of course the 3D printed housing + minifigure.
 
 
 **useful links:**
