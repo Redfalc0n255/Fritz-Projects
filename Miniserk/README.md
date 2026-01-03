@@ -1,5 +1,16 @@
 This project is just a small little present for my good friend Don Tatlock. I want a sound board that will play selected songs stored in a microSD card, inside of a berserk guts minifigure.
 
+## Finished Photos
+
+<img src="Photos/mini1.jpg" width="700">
+<img src="Photos/mini2.jpg" width="700">
+
+# Prototype Photos 
+
+<img src="Photos/Closed Base.jpg" width="700">
+<img src="Photos/Miniserk Open Base.jpg.jpg" width="700">
+
+
 **Project is going to have the following components:**
 
 1. 3.7V single-cell LiPO battery
