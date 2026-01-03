@@ -5,8 +5,8 @@ Here are some of my favorite builds from my past job as a professional carpenter
 ## Fences
 <img src="images/The Lynden.jpg" width="700">
 <img src="images/hogwire.jpg" width="700">
-<img src="images/japanese.jpg" width="700">
-<img src="images/silver.jpg" width="700">
+<img src="images/japanese.JPG" width="700">
+<img src="images/silver.JPG" width="700">
 
 ## Decks
 <img src="images/deck1.jpg" width="700">
