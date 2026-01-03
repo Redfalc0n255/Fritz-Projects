@@ -2,13 +2,13 @@ This project is just a small little present for my good friend Don Tatlock. I wa
 
 ## Finished Photos
 
-<img src="Photos/mini1.jpg" width="700">
+<img src="Photos/mini.jpg" width="700">
 <img src="Photos/mini2.jpg" width="700">
 
 # Prototype Photos 
 
 <img src="Photos/Closed Base.jpg" width="700">
-<img src="Photos/Miniserk Open Base.jpg.jpg" width="700">
+<img src="Photos/Miniserk Open Base.jpg" width="700">
 
 
 **Project is going to have the following components:**
