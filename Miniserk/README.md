@@ -1,4 +1,4 @@
-This project is just a small little present for my good friend Don Tatlock. I want a sound board that will play selected songs stored in a microSD card, inside of a berserk guts minifigure.
+This project is just a small little present for my good friend Don Tatlock. I want a sound board that will play selected songs stored in a microSD card, inside of a berserk guts minifigure. I have also made a second one for my dad (that one is a turtle).
 
 ## Finished Photos
 
