@@ -1,0 +1,223 @@
+project:
+  name: "Fritz-A-Phone"
+  prior_names:
+    - "Zerk Pager"
+    - "Zerk-pager"
+  rename_rule: "Ignore any 'Zerk' references in older notes; they refer to Fritz-A-Phone."
+  owner: "Ben Fritz"
+  last_updated: "2026-02-16"
+  status: "custom PCB bring-up / firmware integration"
+
+goal:
+  one_line: "A private in-home audio messaging device that records short voice messages and sends them to known recipients on a closed network."
+  differentiators:
+    - "Not a phone replacement; it’s intentionally private + limited to known devices"
+    - "Only accepts messages from registered owners in a configuration file"
+    - "Each device has an 'announcement' audio clip used to identify the sender"
+    - "Physical 3D avatar ('Zerk-atar' renamed: Fritz avatar) with a light pipe / illuminated figure"
+
+device_overview:
+  housing:
+    shape: "black octagon case ~1 inch high"
+    features:
+      - "4 side buttons (green/yellow/red/black)"
+      - "USB-C power input"
+      - "microSD slot access"
+      - "pinhole mic opening in lid"
+      - "top-mounted translucent 3D avatar illuminated from within"
+  power:
+    mode: "plug-in only (no battery)"
+    input: "USB-C DC power (notes mention 5V 1A or 12V USB-C source)"
+    note: "Confirm whether PCB uses 5V only or negotiates 12V; firmware assumes 5V + 3V3 rails exist."
+
+hardware:
+  mcu:
+    name: "ESP32-WROOM-32 (30-pin dev-board style module w/ CP2102)"
+  audio_out:
+    amp:
+      name: "MAX98357A I2S Class-D amp"
+      datasheet_pdf: "https://www.analog.com/media/en/technical-documentation/data-sheets/max98357a-max98357b.pdf"
+      notes:
+        - "PCM/I2S input Class-D amplifier; auto-recognizes common PCM/TDM clocking (no I2C programming)."
+    speaker:
+      impedance_ohms: "__fill__"
+      power_w: "__fill__"
+  audio_in:
+    mic:
+      name: "INMP441 I2S MEMS microphone module"
+      datasheet_pdf: "https://invensense.tdk.com/wp-content/uploads/2015/02/INMP441.pdf"
+      notes:
+        - "I2S 24-bit two's complement output."
+        - "L/R pin selects left vs right channel."
+  storage:
+    microsd_module:
+      name: "3-01-0038 microSD module (HiLetgo listing in notes)"
+      product_page: "https://www.hiletgo.com/ProductDetail/2158021.html"
+      interface: "SPI"
+      capacity_target: "up to 128GB (notes)"
+  ui:
+    buttons:
+      count: 4
+      labels: ["Green", "Yellow", "Red", "Black"]
+    leds:
+      count: 2
+      role: "avatar light + status indicator (patterns for state/errors)"
+
+functional_behavior:
+  announcements:
+    concept: "Each owner has an announcement audio file (e.g., their name) used to identify senders/recipients."
+  system_sounds:
+    replaceable: true
+    examples:
+      - "recipient select sound"
+      - "message sent success sound"
+      - "message receive error beep"
+      - "message removed confirmation"
+      - "queue waiting indicator + sender announcement"
+  button_map_intent:
+    green:
+      name: "Cycle recipients"
+      behavior: "Plays each recipient's announcement wav in order from the network config file."
+    yellow:
+      name: "Record & send"
+      behavior: "Hold >1s to start recording; release stops, saves file, queues for recipient, plays sent sound + recipient announcement."
+    red:
+      name: "Play message"
+      behavior: "Plays most recent message in queue; if none, plays 'no message' sound."
+    black:
+      name: "Remove message"
+      behavior: "Removes current active message from queue; plays 'Message Removed From Queue'."
+      note: "Alternative idea: black=save, red=play+delete previous (TBD)."
+
+pin_map:
+  # Pin naming: use ESP32 GPIO numbers; "Dxx" below refers to silkscreen labels from your notes.
+
+  i2s_shared_bus:
+    description: "MAX98357A and INMP441 share BCLK + WS/LRCLK. Data lines are separate (DOUT to amp, DIN from mic)."
+    bclk:
+      gpio: 26
+      label: "D26"
+      net: "I2S_BCLK"
+      connected_to: ["MAX98357A BCLK", "INMP441 SCK"]
+    lrclk_ws:
+      gpio: 25
+      label: "D25"
+      net: "I2S_LRCLK_WS"
+      connected_to: ["MAX98357A LRC", "INMP441 WS"]
+    data_out_to_amp:
+      gpio: 13
+      label: "D13"
+      net: "I2S_DOUT"
+      connected_to: ["MAX98357A DIN"]
+    data_in_from_mic:
+      gpio: 33
+      label: "D33"
+      net: "I2S_DIN"
+      connected_to: ["INMP441 SD"]
+
+  max98357a:
+    vin: "5V"
+    gnd: "GND"
+    su_sd_mode:
+      wired_to: "3.3V (always enabled)"
+      note: "Your notes say SU=3.3V (amp always on)."
+    gain:
+      state: "FLOATING"
+      note: "Gain pin left floating per your build; confirm desired gain later."
+    sources:
+      - "https://www.analog.com/media/en/technical-documentation/data-sheets/max98357a-max98357b.pdf"
+
+  inmp441:
+    vdd: "3.3V"
+    gnd: "GND"
+    l_r:
+      wired_to: "GND (Left channel)"
+      note: "L/R selects left vs right channel."
+    sources:
+      - "https://invensense.tdk.com/wp-content/uploads/2015/02/INMP441.pdf"
+
+  microsd_spi:
+    module_page: "https://www.hiletgo.com/ProductDetail/2158021.html"
+    cs:
+      gpio: 27
+      label: "D27"
+      net: "SD_CS"
+    sck:
+      gpio: 18
+      label: "D18"
+      net: "SD_SCK"
+    mosi:
+      gpio: 23
+      label: "D23"
+      net: "SD_MOSI"
+    miso:
+      gpio: 19
+      label: "D19"
+      net: "SD_MISO"
+    vin: "5V"
+    gnd: "GND"
+    notes:
+      - "Confirm whether this module includes level shifting; many microSD breakout boards are 5V-tolerant on VIN but still use 3.3V logic internally."
+
+  ui_gpio_assignments:
+    # Selected from your provided list: D15, D2, D4, RX2, TX2, D5, D34, D35, D32, D33
+    # Avoids reusing I2S pins and avoids most boot-strap risks.
+    buttons_active_level: "LOW (button to GND)"
+    leds_active_level: "HIGH (GPIO drives LED via resistor/transistor as designed)"
+    buttons:
+      - name: "BTN_GREEN_cycle_recipient"
+        gpio: 14
+        label: "D14"
+        pullup: "input_pullup"
+      - name: "BTN_YELLOW_record_send"
+        gpio: 32
+        label: "D32"
+        pullup: "input_pullup"
+      - name: "BTN_RED_play"
+        gpio: 16
+        label: RX2
+        pullup: "input_pullup"
+      - name: "BTN_BLACK_remove"
+        gpio: 17
+        label: TX2
+        pullup: "use pull-up so GPIO15 is HIGH at boot (strapping pin)"
+        warning: 
+    leds:
+      - name: "LED_STATUS_1"
+        gpio: 4
+        label: "RX2"
+      - name: "LED_STATUS_2"
+        gpio: 5
+        label: "TX2"
+    boot_strap_reference:
+      - "https://randomnerdtutorials.com/esp32-pinout-reference-gpios/"
+      - "https://docs.espressif.com/projects/esptool/en/latest/esp32/advanced-topics/boot-mode-selection.html"
+
+software:
+  expected_stack:
+    framework: "__Arduino or ESP-IDF (fill)__"
+    transport: "__ESP-NOW / WiFi / BLE / cloud (fill)__"
+  audio_format_targets:
+    record: "__WAV PCM mono (fill sample rate/bit depth)__"
+    playback: "__WAV PCM mono/stereo (fill)__"
+  state_machine:
+    states: ["IDLE", "RECIPIENT_SELECT", "RECORDING", "SAVING", "SENDING", "RECEIVING", "PLAYING", "ERROR"]
+  sd_file_structure:
+    config_files:
+      - "__network_config.json/yaml__"
+      - "__recipient_list__"
+    folders:
+      - "/announcements/"
+      - "/outbox/"
+      - "/inbox/"
+      - "/system_sounds/"
+  bringup_tests:
+    - "SD mount + create/read test file"
+    - "Mic capture test: write raw or WAV to SD"
+    - "Amp test: play tone then play WAV from SD"
+    - "End-to-end: record -> save -> playback -> mark queued"
+
+notes_and_todos:
+  - "Confirm if USB-C provides 5V only or if 12V is actually used (PD trigger?)"
+  - "Confirm SD module logic-level behavior (3.3V vs 5V IO); protect ESP32 GPIOs if needed."
+  - "If boot issues occur, first suspect strapping pins (GPIO15, 2, 4, 5) being held wrong at reset."
