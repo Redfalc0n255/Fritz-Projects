@@ -74,7 +74,7 @@ fritz-phone/
 
 **Images**
 
-<img src="images/IMG_0639.jpeg" width="700">
+<img src="images/IMG_0773.jpeg" width="700">
 
 <img src="images/IMG_0640.jpeg" width="700">
 
