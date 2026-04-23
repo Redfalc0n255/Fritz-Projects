@@ -74,14 +74,11 @@ fritz-phone/
 
 **Images**
 
-For images of the project hardware and build, see the files in the images/ folder.
+<img src="images/IMG_0639.jpeg" width="700">
 
-Suggested image references:
+<img src="images/IMG_0640.jpeg" width="700">
 
-
-
-
-
+<img src="images/IMG_0641.jpeg" width="700">
 
 **Notes**
 
